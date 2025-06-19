@@ -2,7 +2,7 @@
 # Command-line interface for uploading a scanned PDF, extracting text, and asking questions
 
 from ocr.ocr_utils import extract_text_from_pdf
-from langchain_pipeline import build_qa_chain
+from langchain_pipeline.langchain_pipeline import build_qa_chain
 
 if __name__ == "__main__":
     # Path to the PDF you want to analyze

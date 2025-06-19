@@ -2,10 +2,10 @@
 # Creates a LangChain RetrievalQA pipeline to answer questions about a document
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import FAISS
+from langchain_community.embeddings import OpenAIEmbeddings
+from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
-from langchain.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI
 
 # Build the LangChain pipeline using OpenAI embeddings and GPT-4
 def build_qa_chain(text):

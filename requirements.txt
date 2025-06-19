@@ -2,6 +2,8 @@ pytesseract
 Pillow
 PyMuPDF
 langchain
+langchain-community
+langchain-openai
 openai
 faiss-cpu
 streamlit

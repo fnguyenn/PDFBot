@@ -4,6 +4,12 @@ data/*
 !data/.gitkeep
 # Ignore virtual environments
 venv/
-
 # Ignore .env file
 .env
+# Ignore temporary images from OCR
+temp_images/
+# Python specifics
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
