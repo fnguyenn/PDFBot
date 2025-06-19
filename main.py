@@ -1,5 +1,5 @@
-from ocr_utils import extract_text_from_pdf
-from langchain_pipeline import build_qa_chain
+from ocr.ocr_utils import extract_text_from_pdf
+from langchain_pipeline.langchain_pipeline import build_qa_chain
 
 if __name__ == "__main__":
     filepath = "data/sample_doc.pdf"

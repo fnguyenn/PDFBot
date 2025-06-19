@@ -1,8 +1,8 @@
 import streamlit as st
-from ocr_utils import extract_text_from_pdf
-from langchain_pipeline import build_qa_chain
+from ocr.ocr_utils import extract_text_from_pdf
+from langchain_pipeline.langchain_pipeline import build_qa_chain
 
-st.title("🧾 PDFBot")
+st.title("PDFBot")
 uploaded_file = st.file_uploader("Upload a scanned PDF", type="pdf")
 
 if uploaded_file:
