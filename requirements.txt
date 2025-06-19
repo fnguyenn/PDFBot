@@ -1,0 +1,7 @@
+pytesseract
+Pillow
+PyMuPDF
+langchain
+openai
+faiss-cpu
+streamlit
