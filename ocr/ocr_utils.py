@@ -31,7 +31,7 @@ def extract_text_from_pdf(pdf_path):
     images = extract_images_from_pdf(pdf_path, output_folder=output_folder)
     text = "\n".join([extract_text_from_image(img) for img in images])
     
-    # Clean up temporary images
+    # Clean up temporary images folder
     shutil.rmtree(output_folder, ignore_errors=True)
 
     return text

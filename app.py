@@ -6,7 +6,7 @@ from ocr.ocr_utils import extract_text_from_pdf
 from langchain_pipeline.langchain_pipeline import build_qa_chain
 
 # Title for the app
-st.title("📄 PDFBot: Ask Questions About Your Document")
+st.title("PDFBot: Upload a PDF and Ask Questions")
 
 # Upload scanned PDF
 uploaded_file = st.file_uploader("Upload a scanned PDF", type="pdf")
