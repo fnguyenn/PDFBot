@@ -5,6 +5,7 @@ from PIL import Image
 import pytesseract
 import fitz  # PyMuPDF
 import os
+import shutil
 
 # Extract text from an image using Tesseract OCR
 def extract_text_from_image(image_path):
@@ -26,6 +27,11 @@ def extract_images_from_pdf(pdf_path, output_folder="temp_images"):
 
 # Apply OCR to a scanned PDF by converting pages to images
 def extract_text_from_pdf(pdf_path):
-    images = extract_images_from_pdf(pdf_path)
+    output_folder = "temp_images"
+    images = extract_images_from_pdf(pdf_path, output_folder=output_folder)
     text = "\n".join([extract_text_from_image(img) for img in images])
+    
+    # Clean up temporary images
+    shutil.rmtree(output_folder, ignore_errors=True)
+
     return text

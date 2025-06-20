@@ -1,27 +1,45 @@
 # langchain_pipeline.py
-# Creates a LangChain RetrievalQA pipeline to answer questions about a document
 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import OpenAIEmbeddings
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
+
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain.chains import RetrievalQA
-from langchain_community.chat_models import ChatOpenAI
+from langchain_openai.embeddings import OpenAIEmbeddings
+from langchain_openai.chat_models import ChatOpenAI
+from langchain_core.prompts import PromptTemplate
 
-# Build the LangChain pipeline using OpenAI embeddings and GPT-4
 def build_qa_chain(text):
-    # Break the text into overlapping chunks for better retrieval
+    # Step 1: Split text into documents
     splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
     docs = splitter.create_documents([text])
 
-    # Convert text chunks into vector embeddings
+    # Step 2: Create vectorstore and retriever
     embeddings = OpenAIEmbeddings()
-    db = FAISS.from_documents(docs, embeddings)
+    vectorstore = FAISS.from_documents(docs, embedding=embeddings)
+    retriever = vectorstore.as_retriever()
 
-    # Use GPT-4 to create a question-answering chain
+    # Step 3: Define your prompt
+    prompt = PromptTemplate.from_template("""
+    You are a helpful assistant. Use the following context to answer the question.
+    
+    Context:
+    {context}
+
+    Question:
+    {question}
+
+    Answer:
+    """)
+
+    # Step 4: Build the chain with LCEL
     llm = ChatOpenAI(model="gpt-4")
-    qa = RetrievalQA.from_chain_type(
-        llm=llm,
-        retriever=db.as_retriever(),
-        return_source_documents=True
+
+    chain = (
+        {"context": retriever | RunnablePassthrough(), "question": RunnablePassthrough()}
+        | prompt
+        | llm
+        | StrOutputParser()
     )
-    return qa
+
+    return chain

@@ -19,5 +19,5 @@ if __name__ == "__main__":
         query = input("Ask a question (or type 'exit'): ")
         if query.lower() == "exit":
             break
-        answer = qa_chain.run(query)
+        answer = qa_chain.invoke(query)
         print("Answer:", answer)
