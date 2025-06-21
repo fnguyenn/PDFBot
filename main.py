@@ -2,14 +2,15 @@
 # Command-line interface for uploading a scanned PDF, extracting text, and asking questions
 
 from ocr.ocr_utils import extract_text_from_pdf
+from ocr.ocr_utils import extract_text_from_image
 from langchain_pipeline.langchain_pipeline import build_qa_chain
 
 if __name__ == "__main__":
     # Path to the test pdf
-    filepath = "data/sample_doc.pdf"
+    filepath = "data/image_of_text.png"
 
     # Run OCR to get raw text from the scanned PDF
-    text = extract_text_from_pdf(filepath)
+    text = extract_text_from_image(filepath)
 
     # Build a LangChain QA chain from the extracted text
     qa_chain = build_qa_chain(text)
