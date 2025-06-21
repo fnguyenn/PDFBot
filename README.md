@@ -1,25 +1,27 @@
 OCR_UTILS.py:
-Python Image Library (PIL), imports Image, which allows me to open and manipulate image files
 
-Pytesseract is Python Wrapper for Google's Tesseract-OCR engine. It allows Python to interact with Tesseract for extracting text from images
+    Python Image Library (PIL), imports Image, which allows me to open and manipulate image files
 
-Fitz is from the PyMuPDF library. This library enables reading and manipulating PDF files, including rendering pages as images.
+    Pytesseract is Python Wrapper for Google's Tesseract-OCR engine. It allows Python to interact with Tesseract for extracting text from images
 
-OS is Python’s built-in os library to handle file paths and directory creation.
+    Fitz is from the PyMuPDF library. This library enables reading and manipulating PDF files, including rendering pages as images.
 
-Shutil library, which is used here for deleting directories and their contents.
+    OS is Python’s built-in os library to handle file paths and directory creation.
+
+    Shutil library, which is used here for deleting directories and their contents.
 
 LANGCHAIN_PIPELINE.PY:
-RunnablePassthrough is a utility that passes inputs directly through—used in chaining steps when no transformation is needed.
 
-StrOutputParser is a parser that converts the language model’s output to a plain string.
+    RunnablePassthrough is a utility that passes inputs directly through—used in chaining steps when no transformation is needed.
 
-RecursiveCharacterTextSplitter is a text splitter that recursively splits long text into smaller chunks while preserving semantic boundaries.
+    StrOutputParser is a parser that converts the language model’s output to a plain string.
 
-FAISS is a vector store integration from LangChain. FAISS is a library for efficient similarity search on vector embeddings.
+    RecursiveCharacterTextSplitter is a text splitter that recursively splits long text into smaller chunks while preserving semantic boundaries.
 
-OpenAIEmbeddings is the class for generating text embeddings using OpenAI models.
+    FAISS is a vector store integration from LangChain. FAISS is a library for efficient similarity search on vector embeddings.
 
-ChatOpenAI imports the chat model interface to access OpenAI’s GPT models via LangChain.
+    OpenAIEmbeddings is the class for generating text embeddings using OpenAI models.
 
-PromptTemplate is LangChain's way of formatting and filling prompts for language models.
+    ChatOpenAI imports the chat model interface to access OpenAI’s GPT models via LangChain.
+
+    PromptTemplate is LangChain's way of formatting and filling prompts for language models.
