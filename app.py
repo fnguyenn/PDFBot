@@ -1,5 +1,5 @@
 # app.py
-# Streamlit web UI for the document Q&A bot (LCEL-compatible)
+# Streamlit web UI for the document Q&A bot
 
 import streamlit as st
 from ocr.ocr_utils import extract_text_from_pdf

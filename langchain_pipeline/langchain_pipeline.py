@@ -9,17 +9,19 @@ from langchain_openai.embeddings import OpenAIEmbeddings
 from langchain_openai.chat_models import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
 
+# Takes raw text and returns a LangChain pipeline that can answer questions based on it
 def build_qa_chain(text):
-    # Step 1: Split text into documents
+    # creates a text splitter that breaks long text into chunks of 500 characters, with 50 characters of overlap to preserve context
     splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
-    docs = splitter.create_documents([text])
+    docs = splitter.create_documents([text])        # splits the input text into a list of LangChain document objects
 
-    # Step 2: Create vectorstore and retriever
-    embeddings = OpenAIEmbeddings()
-    vectorstore = FAISS.from_documents(docs, embedding=embeddings)
-    retriever = vectorstore.as_retriever()
 
-    # Step 3: Define your prompt
+    embeddings = OpenAIEmbeddings()    # OpenAI’s embedding model to convert text into high-dimensional vectors
+    vectorstore = FAISS.from_documents(docs, embedding=embeddings) # converts the split docs into vector embeddings and stores them in a FAISS index for fast similarity search
+    retriever = vectorstore.as_retriever()      # will be used to look up relevant text chunks in response to a question
+
+
+    # defines a reusable prompt that the language model will see
     prompt = PromptTemplate.from_template("""
     You are a helpful assistant. Use the following context to answer the question.
     
@@ -32,9 +34,15 @@ def build_qa_chain(text):
     Answer:
     """)
 
-    # Step 4: Build the chain with LCEL
-    llm = ChatOpenAI(model="gpt-4")
 
+    llm = ChatOpenAI(model="gpt-4")         # initializes the GPT-4 model from OpenAI using LangChain’s wrapper
+
+
+    # builds a LangChain Expression Language chain
+    # 1.takes user input, passes it to the retriever to fetch context, and passes the question directly
+    # 2.fills the prompt template with {context} and {question}
+    # 3.sends the filled prompt to GPT-4 for an answer
+    # 4.extracts the model’s answer as a plain string
     chain = (
         {"context": retriever | RunnablePassthrough(), "question": RunnablePassthrough()}
         | prompt
